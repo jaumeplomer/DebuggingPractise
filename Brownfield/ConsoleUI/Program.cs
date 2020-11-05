@@ -14,50 +14,71 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            string w;
-            int i, t, ttl;
+            string w, rawTimeWorked;
+            int i;
+            double ttl, t;
             List<TimeSheetEntry> ents = new List<TimeSheetEntry>();
             Console.Write("Enter what you did: ");
             w = Console.ReadLine();
             Console.Write("How long did you do it for: ");
-            t = int.Parse(Console.ReadLine());
+            t = double.Parse(Console.ReadLine());
             TimeSheetEntry ent = new TimeSheetEntry();
             ent.HoursWorked = t;
             ent.WorkDone = w;
             ents.Add(ent);
-            Console.Write("Do you want to enter more time:");
-            bool cont = bool.Parse(Console.ReadLine());
-            do
+            Console.Write("Do you want to enter more time (yes/no):");
+
+            string answer = Console.ReadLine();
+            bool cont = false;
+
+            if (answer.ToLower() == "yes")
+            {
+                cont = true;
+            }
+
+            while (cont == true)
             {
                 Console.Write("Enter what you did: ");
                 w = Console.ReadLine();
                 Console.Write("How long did you do it for: ");
-                t = int.Parse(Console.ReadLine());
+                t = double.Parse(Console.ReadLine());
+                ent = new TimeSheetEntry();
                 ent.HoursWorked = t;
                 ent.WorkDone = w;
                 ents.Add(ent);
-                Console.Write("Do you want to enter more time:");
-                cont = bool.Parse(Console.ReadLine());
-            } while (cont == true);
+
+                Console.Write("Do you want to enter more time (yes/no):");
+                answer = Console.ReadLine();
+                cont = false;
+
+                if (answer.ToLower() == "yes")
+                {
+                    cont = true;
+                }
+            }
             ttl = 0;
             for (i = 0; i < ents.Count; i++)
             {
                 if (ents[i].WorkDone.Contains("Acme"))
                 {
-                    ttl += i;
+                    ttl += ents[i].HoursWorked;
                 }
             }
             Console.WriteLine("Simulating Sending email to Acme");
             Console.WriteLine("Your bill is $" + ttl * 150 + " for the hours worked.");
+
+            ttl = 0;
             for (i = 0; i < ents.Count; i++)
             {
                 if (ents[i].WorkDone.Contains("ABC"))
                 {
-                    ttl += i;
+                    ttl += ents[i].HoursWorked;
                 }
             }
             Console.WriteLine("Simulating Sending email to ABC");
             Console.WriteLine("Your bill is $" + ttl * 125 + " for the hours worked.");
+
+            ttl = 0;
             for (i = 0; i < ents.Count; i++)
             {
                 ttl += ents[i].HoursWorked;
@@ -79,6 +100,6 @@ namespace ConsoleUI
     public class TimeSheetEntry
     {
         public string WorkDone;
-        public int HoursWorked;
+        public double HoursWorked;
     }
 }
