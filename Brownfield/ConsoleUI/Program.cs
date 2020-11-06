@@ -21,7 +21,16 @@ namespace ConsoleUI
             Console.Write("Enter what you did: ");
             w = Console.ReadLine();
             Console.Write("How long did you do it for: ");
-            t = double.Parse(Console.ReadLine());
+            rawTimeWorked = Console.ReadLine();
+
+            while (double.TryParse(rawTimeWorked, out t) == false)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Invalid number given");
+                Console.Write("How long did you do it for: ");
+                rawTimeWorked = Console.ReadLine();
+            }
+ 
             TimeSheetEntry ent = new TimeSheetEntry();
             ent.HoursWorked = t;
             ent.WorkDone = w;
@@ -41,7 +50,16 @@ namespace ConsoleUI
                 Console.Write("Enter what you did: ");
                 w = Console.ReadLine();
                 Console.Write("How long did you do it for: ");
-                t = double.Parse(Console.ReadLine());
+                rawTimeWorked = Console.ReadLine();
+
+                while (double.TryParse(rawTimeWorked, out t) == false)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid number given");
+                    Console.Write("How long did you do it for: ");
+                    rawTimeWorked = Console.ReadLine();
+                }
+
                 ent = new TimeSheetEntry();
                 ent.HoursWorked = t;
                 ent.WorkDone = w;
@@ -59,7 +77,7 @@ namespace ConsoleUI
             ttl = 0;
             for (i = 0; i < ents.Count; i++)
             {
-                if (ents[i].WorkDone.Contains("Acme"))
+                if (ents[i].WorkDone.ToLower().Contains("acme"))
                 {
                     ttl += ents[i].HoursWorked;
                 }
@@ -70,7 +88,7 @@ namespace ConsoleUI
             ttl = 0;
             for (i = 0; i < ents.Count; i++)
             {
-                if (ents[i].WorkDone.Contains("ABC"))
+                if (ents[i].WorkDone.ToLower().Contains("abc"))
                 {
                     ttl += ents[i].HoursWorked;
                 }
