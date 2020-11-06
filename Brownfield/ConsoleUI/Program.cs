@@ -103,7 +103,7 @@ namespace ConsoleUI
             }
             if (ttl > 40)
             {
-                Console.WriteLine("You will get paid $" + ttl * 15 + " for your work.");
+                Console.WriteLine("You will get paid $" + (((ttl - 40) * 15) + (40 * 10)) + " for your work.");
             }
             else
             {
